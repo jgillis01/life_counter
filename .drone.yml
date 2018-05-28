@@ -1,0 +1,15 @@
+pipeline:
+  formatting:
+    group: build
+    image: elixir
+    commands:
+      - mix local.hex --force
+      - mix deps.get
+      - mix format --check-formatted --dry-run
+  test:
+    group: build
+    image: elixir
+    commands:
+      - mix local.hex --force
+      - mix deps.get
+      - mix test
