@@ -20,6 +20,8 @@ defmodule LifeCounterServerTest do
   test "it resets the life count", %{jerry: jerry} do
     GenServer.cast(jerry, {:adjust, -15})
     assert GenServer.call(jerry, :total) == 15
+    GenServer.cast(jerry, {:adjust, -5})
+    assert GenServer.call(jerry, :total) == 10
     GenServer.cast(jerry, :reset)
     assert GenServer.call(jerry, :total) == 30
   end
