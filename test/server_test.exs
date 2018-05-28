@@ -23,5 +23,4 @@ defmodule LifeCounterServerTest do
     GenServer.cast(jerry, :reset)
     assert GenServer.call(jerry, :total) == 30
   end
-
 end
