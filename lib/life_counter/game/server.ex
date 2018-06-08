@@ -30,6 +30,16 @@ defmodule LifeCounter.Game.Server do
     {:noreply, [player | players]}
   end
 
+  def handle_cast({:remove_player, player}, players) do
+    player =
+      players
+      |> Enum.filter(&(&1.name == player))
+      |> List.first()
+
+    Process.exit(player.pid, :kill)
+    {:noreply, players}
+  end
+
   def handle_info({:DOWN, _ref, :process, object, _reason}, players) do
     [player] = players |> Enum.filter(&(&1.pid == object))
     new_players = players |> Enum.reject(&(&1.pid == object))

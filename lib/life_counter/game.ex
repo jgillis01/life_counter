@@ -9,6 +9,13 @@ defmodule LifeCounter.Game do
   end
 
   @doc ~S"""
+    Removes a player from the game
+  """
+  def remove_player(player) do
+    GenServer.cast(Server, {:remove_player, player})
+  end
+
+  @doc ~S"""
     Retrieves the summary of the game.
   """
   def summary() do

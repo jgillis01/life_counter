@@ -5,6 +5,7 @@ defmodule LifeCounter do
     player.name
   end
 
+  defdelegate remove_player(player_name), to: LifeCounter.Game
   defdelegate game_summary(), to: LifeCounter.Game, as: :summary
   defdelegate adjust_player(player_name, adjustment), to: LifeCounter.Player, as: :adjust
   defdelegate reset_player(player_name), to: LifeCounter.Player, as: :reset

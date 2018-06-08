@@ -9,7 +9,7 @@ defmodule LifeCounter.Player do
     random_name = player_name |> randomize_name()
     name = random_name |> name_via_registry()
     {:ok, pid} = GenServer.start(Server, {random_name, starting_points}, name: name)
-    %{name: random_name, pid: pid}
+    %{name: random_name, starting_points: starting_points, pid: pid}
   end
 
   @doc ~S"""
