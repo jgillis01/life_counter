@@ -1,20 +1,12 @@
 defmodule LifeCounter do
-  alias LifeCounter.Server
-
-  def new(player, starting_points) do
-    name = {:via, Registry, {LifeCounter.PlayerRegistry, player}}
-    GenServer.start_link(Server, {player, starting_points}, name: name)
+  def add_player(player, starting_points) do
+    player = new_player(player, starting_points)
+    LifeCounter.Game.add_player(player)
+    player.name
   end
 
-  def total(counter) do
-    GenServer.call(counter, :total)
-  end
-
-  def adjust(counter, adjustment) do
-    GenServer.cast(counter, {:adjust, adjustment})
-  end
-
-  def reset(counter) do
-    GenServer.cast(counter, :reset)
-  end
+  defdelegate game_summary(), to: LifeCounter.Game, as: :summary
+  defdelegate adjust_player(player_name, adjustment), to: LifeCounter.Player, as: :adjust
+  defdelegate reset_player(player_name), to: LifeCounter.Player, as: :reset
+  defdelegate new_player(player, starting_points), to: LifeCounter.Player, as: :new
 end

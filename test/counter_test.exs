@@ -1,12 +1,12 @@
-defmodule LifeCounterTest do
+defmodule CounterTest do
   use ExUnit.Case
-  doctest LifeCounter.Counter
+  doctest LifeCounter.Player.Counter
 
-  alias LifeCounter.Counter
+  alias LifeCounter.Player.Counter
 
   test "it sets a player name" do
     counter = Counter.new("JimBob", 30)
-    assert counter.player == "JimBob"
+    assert counter.name == "JimBob"
   end
 
   test "it tracks the player starting points" do
@@ -18,7 +18,7 @@ defmodule LifeCounterTest do
     counter = Counter.new("JimBob", 30)
     counter = Counter.adjust(counter, -3)
     counter = Counter.adjust(counter, 1)
-    total = Counter.total(counter)
-    assert total == 28
+    summary = Counter.summary(counter)
+    assert summary.points == 28
   end
 end
