@@ -41,8 +41,15 @@ defmodule LifeCounter.Game.Server do
   end
 
   def handle_info({:DOWN, _ref, :process, object, _reason}, players) do
-    [player] = players |> Enum.filter(&(&1.pid == object))
-    new_players = players |> Enum.reject(&(&1.pid == object))
+    player =
+      players
+      |> Enum.filter(&(&1.pid == object))
+      |> List.first()
+
+    new_players =
+      players
+      |> Enum.reject(&(&1.pid == object))
+
     notify("player_left", player)
 
     {:noreply, new_players}
